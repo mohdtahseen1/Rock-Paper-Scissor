@@ -1,14 +1,22 @@
 let Rps = document.querySelectorAll('.btn');
 let msg = document.querySelector('.msg');
-// let Rock = Rps[0];
-// let Paper = Rps[1];
-// let Scissor = Rps[2];
+let userScore = document.querySelector('#user-score');
+let compScore = document.querySelector('#comp-score');
+let resetbtn = document.querySelector('#reset');
+let uscore = 0;
+let cscore = 0;
+
+resetbtn.addEventListener('click',()=>{
+    uscore = 0;
+    cscore = 0;
+    userScore.innerText = uscore;
+    compScore.innerText = cscore;
+})
 let userWin = true;
 Rps.forEach((el)=>{
     el.addEventListener('click',()=>{
         let userChoice = el.innerText;
         let compChoice = Rps[Math.floor(Math.random()*3)].innerText;
-        console.log(compChoice);
         checkWin(userChoice,compChoice);
     })
 })
@@ -27,14 +35,19 @@ const checkWin = (userChoice,compChoice) =>{
     }
     showWin(userWin,userChoice,compChoice);
 }
+
 const showWin = (userWin,userChoice,compChoice)=>{
     if(userChoice === compChoice){
         msg.innerText = 'Game is Drown';
     }
     else if(userWin){
+        uscore++;
+        userScore.innerText = uscore;
         msg.innerText = 'You win';
     }
     else{
+        cscore++;
+        compScore.innerText = cscore;
         msg.innerText = 'Comp win';
     }
 }
